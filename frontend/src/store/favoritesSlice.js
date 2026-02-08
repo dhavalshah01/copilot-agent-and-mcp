@@ -8,7 +8,7 @@ export const fetchFavorites = createAsyncThunk('favorites/fetchFavorites', async
 });
 
 export const addFavorite = createAsyncThunk('favorites/addFavorite', async ({ token, bookId }) => {
-  await fetch('http://localhost:4000/api/favorites', {
+  const res = await fetch('http://localhost:4000/api/favorites', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,6 +16,23 @@ export const addFavorite = createAsyncThunk('favorites/addFavorite', async ({ to
     },
     body: JSON.stringify({ bookId }),
   });
+  if (!res.ok) {
+    throw new Error(`Failed to add favorite: ${res.status}`);
+  }
+  return bookId;
+});
+
+// generated-by-copilot: Async thunk to remove a book from favorites
+export const removeFavorite = createAsyncThunk('favorites/removeFavorite', async ({ token, bookId }) => {
+  const res = await fetch(`http://localhost:4000/api/favorites/${bookId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to remove favorite: ${res.status}`);
+  }
   return bookId;
 });
 
@@ -33,6 +50,10 @@ const favoritesSlice = createSlice({
       .addCase(fetchFavorites.rejected, state => { state.status = 'failed'; })
       .addCase(addFavorite.fulfilled, (state, action) => {
         // After adding, fetch the updated favorites list to ensure UI is in sync
+      })
+      .addCase(removeFavorite.fulfilled, (state, action) => {
+        // generated-by-copilot: Remove the book from the local state after successful deletion
+        state.items = state.items.filter(book => book.id !== action.payload);
       });
   },
 });
