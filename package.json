@@ -1,0 +1,28 @@
+{
+  "name": "demo-exercise",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "cd backend && node server.js",
+    "start:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "test:frontend": "bash run-e2e.sh",
+    "test:backend": "bash backend/tests/copy-test-data.sh && cd backend && npx jest",
+    "test": "npm run test:frontend && npm run test:backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "cypress": "^14.4.1",
+    "jest": "^29.7.0",
+    "supertest": "^7.1.1"
+  }
+}

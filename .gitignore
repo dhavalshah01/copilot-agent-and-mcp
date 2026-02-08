@@ -1,0 +1,33 @@
+# Node
+node_modules/
+.env
+*.log
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Tests data
+backend/data/test-*.json
+
+# Build
+/dist/
+/build/
+
+# Mac
+.DS_Store
+
+# Misc
+*.local
+*.cache
+yarn.lock
+
+# OS
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# IDE
+.idea/
+*.iml

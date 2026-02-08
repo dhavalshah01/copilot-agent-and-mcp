@@ -1,0 +1,12 @@
+{
+  "inputs": [
+  ],
+  "servers": {
+    "book-database": {
+      "command": "node",
+      "args": [
+        "/path-to/github-copilot-agent/book-database/build/index.js"
+      ]
+    }
+  }
+}
