@@ -53,13 +53,12 @@ describe('Book Favorites App', () => {
       // Remove a book from favorites
       cy.get('button').contains('Remove').first().click();
       // Verify the book was removed (list should be shorter or show empty message)
-      cy.wait(500); // Brief wait for UI update
       if (initialCount === 1) {
         // If it was the last book, expect empty message
-        cy.contains('No favorite books yet.').should('exist');
+        cy.contains('No favorite books yet.', { timeout: 5000 }).should('exist');
       } else {
         // Otherwise, expect one fewer Remove button
-        cy.get('button').contains('Remove').should('have.length', initialCount - 1);
+        cy.get('button').contains('Remove', { timeout: 5000 }).should('have.length', initialCount - 1);
       }
     });
   });

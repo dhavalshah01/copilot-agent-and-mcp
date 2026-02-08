@@ -25,7 +25,6 @@ const Favorites = () => {
       return;
     }
     await dispatch(removeFavorite({ token, bookId }));
-    dispatch(fetchFavorites(token));
   };
 
   if (status === 'loading') return <div>Loading...</div>;
