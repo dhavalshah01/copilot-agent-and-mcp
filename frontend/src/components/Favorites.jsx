@@ -24,7 +24,11 @@ const Favorites = () => {
       navigate('/');
       return;
     }
-    await dispatch(removeFavorite({ token, bookId }));
+    try {
+      await dispatch(removeFavorite({ token, bookId })).unwrap();
+    } catch (error) {
+      alert('Failed to remove book from favorites. Please try again.');
+    }
   };
 
   if (status === 'loading') return <div>Loading...</div>;
