@@ -118,7 +118,7 @@ describe('Favorites API', () => {
     const users = JSON.parse(fs.readFileSync(usersFile, 'utf-8'));
     const sandra = users.find(u => u.username === 'sandra');
     const favBookId = sandra.favorites[0];
-    if (!favBookId) return; // skip if no favorites
+    expect(favBookId).toBeDefined(); // Ensure user has at least one favorite
     const res = await request(app)
       .delete(`/api/favorites/${favBookId}`)
       .set('Authorization', `Bearer ${token}`);

@@ -46,10 +46,22 @@ describe('Book Favorites App', () => {
     // Navigate to favorites
     cy.get('a#favorites-link').click();
     cy.get('h2').contains('My Favorite Books').should('exist');
-    // Remove a book from favorites
-    cy.get('button').contains('Remove').first().click();
-    // Verify the book was removed (list should be shorter or show empty message if all removed)
-    cy.wait(1000); // Wait for UI to update
+    // Count the number of Remove buttons before removal
+    cy.get('button').contains('Remove').should('have.length.at.least', 1);
+    cy.get('button').contains('Remove').then($buttons => {
+      const initialCount = $buttons.length;
+      // Remove a book from favorites
+      cy.get('button').contains('Remove').first().click();
+      // Verify the book was removed (list should be shorter or show empty message)
+      cy.wait(500); // Brief wait for UI update
+      if (initialCount === 1) {
+        // If it was the last book, expect empty message
+        cy.contains('No favorite books yet.').should('exist');
+      } else {
+        // Otherwise, expect one fewer Remove button
+        cy.get('button').contains('Remove').should('have.length', initialCount - 1);
+      }
+    });
   });
 
   it('should logout and protect routes', () => {
