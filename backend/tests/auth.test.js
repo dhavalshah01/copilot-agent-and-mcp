@@ -28,6 +28,24 @@ describe('Auth API', () => {
     expect([201, 409]).toContain(res.statusCode);
   });
 
+  // generated-by-copilot: Test userType defaults to "member"
+  it('POST /api/register should default userType to "member"', async () => {
+    const uniqueUser = { username: 'testuser_' + Date.now(), password: 'testpass' };
+    await request(app).post('/api/register').send(uniqueUser);
+    const loginRes = await request(app).post('/api/login').send(uniqueUser);
+    expect(loginRes.statusCode).toBe(200);
+    expect(loginRes.body.userType).toBe('member');
+  });
+
+  // generated-by-copilot: Test userType can be set to "administrator"
+  it('POST /api/register should accept userType "administrator"', async () => {
+    const adminUser = { username: 'admin_' + Date.now(), password: 'testpass', userType: 'administrator' };
+    await request(app).post('/api/register').send(adminUser);
+    const loginRes = await request(app).post('/api/login').send(adminUser);
+    expect(loginRes.statusCode).toBe(200);
+    expect(loginRes.body.userType).toBe('administrator');
+  });
+
   it('POST /api/register should fail if user already exists', async () => {
     await request(app).post('/api/register').send(testUser); // ensure exists
     const res = await request(app).post('/api/register').send(testUser);
@@ -39,6 +57,14 @@ describe('Auth API', () => {
     const res = await request(app).post('/api/login').send(testUser);
     expect(res.statusCode).toBe(200);
     expect(res.body.token).toBeDefined();
+  });
+
+  // generated-by-copilot: Test login response includes userType
+  it('POST /api/login should return userType in response', async () => {
+    await request(app).post('/api/register').send(testUser);
+    const res = await request(app).post('/api/login').send(testUser);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.userType).toBeDefined();
   });
 
   it('POST /api/login should fail with wrong password', async () => {
