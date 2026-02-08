@@ -54,12 +54,15 @@ const Register = () => {
         onChange={e => setPassword(e.target.value)}
         required
       />
-      {/* generated-by-copilot: Add userType selection dropdown */}
+      {/* generated-by-copilot: Add accessible label for userType selection */}
+      <label htmlFor="userType" style={{ fontSize: '0.9rem', marginBottom: '0.3rem', display: 'block', textAlign: 'left' }}>
+        User Type:
+      </label>
       <select
+        id="userType"
         name="userType"
         value={userType}
         onChange={e => setUserType(e.target.value)}
-        style={{ padding: '0.5rem', marginBottom: '1rem', fontSize: '1rem' }}
       >
         <option value="member">Member</option>
         <option value="administrator">Administrator</option>

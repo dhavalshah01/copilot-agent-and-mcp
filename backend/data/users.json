@@ -16,5 +16,17 @@
       "21"
     ],
     "userType": "member"
+  },
+  {
+    "username": "admin_test",
+    "password": "testpass123",
+    "favorites": [],
+    "userType": "administrator"
+  },
+  {
+    "username": "member_test",
+    "password": "testpass123",
+    "favorites": [],
+    "userType": "member"
   }
 ]
