@@ -33,6 +33,8 @@ app.use('/api', createApiRouter({
     }
   },
   SECRET_KEY,
+  // generated-by-copilot: Disable rate limiting for regular tests
+  loginRateLimiter: (req, res, next) => next(),
 }));
 
 describe('Favorites API', () => {

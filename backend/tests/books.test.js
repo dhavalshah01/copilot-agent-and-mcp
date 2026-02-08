@@ -12,6 +12,8 @@ app.use('/api', createApiRouter({
   writeJSON: (file, data) => require('fs').writeFileSync(file, JSON.stringify(data, null, 2)),
   authenticateToken: (req, res, next) => next(), // No auth for books
   SECRET_KEY: 'test_secret',
+  // generated-by-copilot: Disable rate limiting for regular tests
+  loginRateLimiter: (req, res, next) => next(),
 }));
 
 describe('Books API', () => {
