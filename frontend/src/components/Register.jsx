@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // generated-by-copilot: Add userType state with default "member"
+  const [userType, setUserType] = useState('member');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
@@ -16,7 +18,8 @@ const Register = () => {
       const res = await fetch('http://localhost:4000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        // generated-by-copilot: Include userType in registration request
+        body: JSON.stringify({ username, password, userType }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Registration failed');
@@ -51,6 +54,16 @@ const Register = () => {
         onChange={e => setPassword(e.target.value)}
         required
       />
+      {/* generated-by-copilot: Add userType selection dropdown */}
+      <select
+        name="userType"
+        value={userType}
+        onChange={e => setUserType(e.target.value)}
+        style={{ padding: '0.5rem', marginBottom: '1rem', fontSize: '1rem' }}
+      >
+        <option value="member">Member</option>
+        <option value="administrator">Administrator</option>
+      </select>
       <button id="register" type="submit">Register</button>
     </form>
   );
